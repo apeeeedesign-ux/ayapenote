@@ -255,6 +255,45 @@ footer{background:var(--blue-deep);padding:32px 6%;display:flex;justify-content:
   .hero-title{font-size:clamp(1.7rem,7vw,2.4rem)}
   .hero-text{max-width:100%}
 }
+
+/* ── わたしの強み（3つの円・常に横並び） ── */
+.strength-card{background:#fff;border-radius:14px;box-shadow:0 6px 28px rgba(28,50,84,.08);padding:2rem 1.6rem;}
+.strength-row{display:flex;gap:2.5%;justify-content:center;align-items:flex-start;}
+.strength-circle{
+  position:relative;flex:0 0 auto;align-self:flex-start;
+  width:31.6%;aspect-ratio:1/1;height:auto;min-height:0;
+  border-radius:50%;overflow:hidden;
+  background:linear-gradient(160deg,#dcecfa,#c4ddf2);
+}
+.sc-inner{
+  position:absolute;inset:12%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+}
+.sc-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(.9rem,2.2vw,1.45rem);color:var(--blue-mid);
+  line-height:1;margin-bottom:.45em;letter-spacing:.08em;
+}
+.sc-txt{
+  font-size:clamp(.75rem,1.85vw,1rem);color:var(--blue-deep);
+  line-height:1.68;font-weight:500;letter-spacing:.005em;
+}
+@media(max-width:680px){
+  .strength-card{padding:1.6rem .7rem;}
+  .strength-row{gap:2.5%;}
+  .sc-inner{inset:11%;}
+  .sc-num{margin-bottom:.35em;}
+  .sc-txt{line-height:1.6;}
+}
+@media(max-width:360px){
+  .strength-card{padding:1.4rem .4rem;}
+  .strength-row{gap:2%;}
+  .strength-circle{width:32%;}
+  .sc-inner{inset:9%;}
+  .sc-num{font-size:.85rem;margin-bottom:.28em;}
+  .sc-txt{font-size:.7rem;line-height:1.5;}
+}
 </style>
 </head>
 <body>
@@ -598,7 +637,7 @@ footer{background:var(--blue-deep);padding:32px 6%;display:flex;justify-content:
             <span style="position:absolute;left:calc(-1.4rem - 7px);top:4px;width:12px;height:12px;border-radius:50%;background:var(--blue-mid);border:2px solid #fff;box-shadow:0 0 0 2px var(--blue-mist);"></span>
             <p style="font-size:.78rem;color:var(--blue-soft);letter-spacing:.08em;font-weight:600;">2023.07 〜 2025.07</p>
             <p style="font-size:.86rem;color:var(--blue-deep);font-weight:500;margin:.2rem 0 .3rem;"><span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--blue-pale);border-radius:50%;margin-right:.5rem;font-size:1.05rem;vertical-align:middle;">🧸</span>雑貨メーカーに営業として転職</p>
-            <p style="font-size:.82rem;color:var(--tx-mid);line-height:1.9;">入社1年目に新キャラクター商品の企画開発に携わり売上貢献。催事で国内ファッション業界売り上げ2位の売り先を新規開拓。1.6万店舗越えCVSとの取引を10年以上ぶりに再開へ繋げる。</p>
+            <p style="font-size:.82rem;color:var(--tx-mid);line-height:1.9;">入社1年目に新キャラクター商品の企画開発に携わり売上貢献。催事で国内アパレル業界2位企業との取引を新規開拓。1.6万店舗越えCVSとの取引を10年以上ぶりに再開へ繋げる。</p>
           </div>
 
           <div style="position:relative;">
@@ -633,20 +672,26 @@ footer{background:var(--blue-deep);padding:32px 6%;display:flex;justify-content:
     </div>
 
     <!-- ══ わたしの強み ══ -->
-    <div style="background:#fff;border-radius:14px;box-shadow:0 6px 28px rgba(28,50,84,.08);padding:2rem 1.6rem;">
+    <div class="strength-card">
       <h3 style="font-family:'Noto Serif JP',serif;font-size:1.25rem;color:var(--blue-deep);font-weight:400;letter-spacing:.14em;text-align:center;margin-bottom:1.6rem;">わたしの強み</h3>
-      <div style="display:flex;gap:3%;justify-content:center;">
-        <div style="width:31%;aspect-ratio:1/1;border-radius:50%;background:linear-gradient(160deg,#dcecfa,#c4ddf2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4%;box-sizing:border-box;">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3vw,1.6rem);color:var(--blue-mid);margin-bottom:.3em;">01</p>
-          <p style="font-size:clamp(.58rem,1.9vw,.92rem);color:var(--blue-deep);line-height:1.8;font-weight:500;">人の話を丁寧に<br>聞いて、<br>要望をまとめる</p>
+      <div class="strength-row">
+        <div class="strength-circle">
+          <div class="sc-inner">
+            <p class="sc-num">01</p>
+            <p class="sc-txt">丁寧に聞き<br>要望を<br>まとめる</p>
+          </div>
         </div>
-        <div style="width:31%;aspect-ratio:1/1;border-radius:50%;background:linear-gradient(160deg,#dcecfa,#c4ddf2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4%;box-sizing:border-box;">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3vw,1.6rem);color:var(--blue-mid);margin-bottom:.3em;">02</p>
-          <p style="font-size:clamp(.58rem,1.9vw,.92rem);color:var(--blue-deep);line-height:1.8;font-weight:500;">細かい作業も<br>コツコツ<br>続けられる</p>
+        <div class="strength-circle">
+          <div class="sc-inner">
+            <p class="sc-num">02</p>
+            <p class="sc-txt">課題を<br>自分ごとに<br>考える</p>
+          </div>
         </div>
-        <div style="width:31%;aspect-ratio:1/1;border-radius:50%;background:linear-gradient(160deg,#dcecfa,#c4ddf2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4%;box-sizing:border-box;">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3vw,1.6rem);color:var(--blue-mid);margin-bottom:.3em;">03</p>
-          <p style="font-size:clamp(.58rem,1.9vw,.92rem);color:var(--blue-deep);line-height:1.8;font-weight:500;">迅速な対応が<br>できる</p>
+        <div class="strength-circle">
+          <div class="sc-inner">
+            <p class="sc-num">03</p>
+            <p class="sc-txt">迅速に<br>対応できる</p>
+          </div>
         </div>
       </div>
     </div>
