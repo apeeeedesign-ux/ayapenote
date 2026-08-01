@@ -27,6 +27,18 @@
   .meta-item{font-size:.82rem;color:var(--tx-mid);line-height:1.8;}
   .meta-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tea);display:block;margin-bottom:.2rem;}
   .work-note{font-size:.7rem;color:var(--tx-soft);line-height:1.7;margin-top:1.2rem;padding-top:.9rem;border-top:1px solid var(--blue-foam);letter-spacing:.02em;}
+  .work-item img{cursor:zoom-in;}
+  .zoom-hint{display:inline-flex;align-items:center;gap:.45rem;font-size:.68rem;letter-spacing:.08em;color:var(--tx-soft);margin-top:.9rem;}
+  .zoom-hint::before{content:'';width:12px;height:12px;border:1px solid var(--tx-soft);border-radius:50%;display:inline-block;}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(28,50,84,.95);display:none;overflow:auto;-webkit-overflow-scrolling:touch;}
+  .lightbox.open{display:block;}
+  .lb-stage{min-height:100%;display:flex;align-items:center;justify-content:center;padding:5vmin 3vmin;}
+  .lb-img{max-width:100%;max-height:90vh;display:block;cursor:zoom-in;background:var(--white);box-shadow:0 10px 50px rgba(0,0,0,.4);}
+  .lightbox.zoom .lb-stage{display:block;padding:2vmin;}
+  .lightbox.zoom .lb-img{max-width:none;max-height:none;cursor:zoom-out;margin:0 auto;}
+  .lb-close{position:fixed;top:16px;right:20px;z-index:210;width:40px;height:40px;border:1px solid rgba(216,234,246,.45);background:transparent;color:var(--blue-pale);border-radius:50%;font-size:1.2rem;line-height:1;cursor:pointer;transition:background .25s,color .25s;}
+  .lb-close:hover{background:rgba(216,234,246,.15);color:var(--white);}
+  .lb-tip{position:fixed;bottom:18px;left:0;right:0;text-align:center;font-size:.66rem;letter-spacing:.12em;color:rgba(216,234,246,.65);pointer-events:none;}
   .back-btn{display:inline-flex;align-items:center;gap:.6rem;color:var(--blue-mid);text-decoration:none;font-size:.8rem;letter-spacing:.1em;margin-bottom:2rem;transition:color .25s;}
   .back-btn:hover{color:var(--blue-deep);}
   footer{background:var(--blue-deep);padding:28px 5%;text-align:center;}
@@ -63,10 +75,46 @@
         <div class="meta-item"><span class="meta-label">使用ツール</span>Canva pro / 20時間40分（修正込み）</div>
         <div class="meta-item" style="grid-column:1/-1;"><span class="meta-label">制作意図・こだわり</span>1スライド1メッセージを徹底し、伝えたい内容ごとに情報を整理。要所では図解を用いて視認性を高め、聞きながらでも内容が入ってくる構成にしました。全体のトンマナは硬さと柔らかさの中間に置き、受講中も構えずに読み進められる親しみやすい雰囲気に仕上げています。</div>
       </div>
+      <p class="zoom-hint">画像をクリックすると拡大してご覧いただけます</p>
       <p class="work-note">※掲載画像は全41ページのうち一部を抜粋したものです。</p>
     </div>
   </div>
 </main>
 <footer><span class="f-logo">make-design</span></footer>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lb-stage"><img class="lb-img" id="lbImg" alt=""></div>
+</div>
+<button class="lb-close" id="lbClose" type="button" aria-label="閉じる" hidden>&#10005;</button>
+<p class="lb-tip" id="lbTip" hidden>画像をクリックでさらに拡大 ／ Esc・背景クリックで閉じる</p>
+<script>
+(function(){
+  var box=document.getElementById('lightbox'),img=document.getElementById('lbImg'),
+      btn=document.getElementById('lbClose'),tip=document.getElementById('lbTip');
+  function open(src,alt){
+    img.src=src;img.alt=alt||'';box.classList.add('open');box.classList.remove('zoom');
+    img.style.width='';box.scrollTop=0;box.scrollLeft=0;box.setAttribute('aria-hidden','false');
+    btn.hidden=false;tip.hidden=false;document.body.style.overflow='hidden';
+  }
+  function close(){
+    box.classList.remove('open','zoom');box.setAttribute('aria-hidden','true');
+    btn.hidden=true;tip.hidden=true;document.body.style.overflow='';img.src='';
+  }
+  function toggleZoom(){
+    if(box.classList.contains('zoom')){box.classList.remove('zoom');img.style.width='';}
+    else{
+      box.classList.add('zoom');img.style.width=(img.naturalWidth||1600)+'px';
+      box.scrollTop=(box.scrollHeight-box.clientHeight)/2;
+      box.scrollLeft=(box.scrollWidth-box.clientWidth)/2;
+    }
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.work-item img'),function(el){
+    el.addEventListener('click',function(){open(el.src,el.alt);});
+  });
+  img.addEventListener('click',function(e){e.stopPropagation();toggleZoom();});
+  box.addEventListener('click',close);
+  btn.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
 <script>document.getElementById('nav-slide').classList.add('active');</script>
 </body></html>
