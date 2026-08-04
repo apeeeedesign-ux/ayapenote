@@ -440,17 +440,17 @@ footer{background:var(--blue-deep);padding:32px 6%;display:flex;justify-content:
     return c.replace('VAL',(Math.random()*.7+.3).toFixed(2));
   }
 
-  function spawnPiece(){
+  function spawnPiece(initY){
     const sz = 28 + Math.random()*36;
     pieces.push({
       x: Math.random()*canvas.width,
-      y: -sz*2,
+      y: (initY === undefined) ? -sz*2 : initY,
       sz,
       shape: SHAPES[Math.floor(Math.random()*SHAPES.length)],
       col: randCol(),
       rot: Math.random()*Math.PI*2,
       rotSpd: (Math.random()-.5)*.02,
-      vy: 0.25 + Math.random()*0.45,
+      vy: 0.32 + Math.random()*0.56,
       vx: (Math.random()-.5)*0.35,
       sway: Math.random()*Math.PI*2,
       swaySpd: 0.008+Math.random()*.012,
@@ -498,11 +498,18 @@ footer{background:var(--blue-deep);padding:32px 6%;display:flex;justify-content:
     ctx.restore();
   }
 
+  // ページが表示された時点で、すでに画面全体に降っている状態にしておく
+  function seedPieces(){
+    const n = Math.max(10, Math.round(canvas.height / 58));
+    for(let i = 0; i < n; i++) spawnPiece(Math.random() * canvas.height);
+  }
+  seedPieces();
+
   let frame=0;
   function loop(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     frame++;
-    if(frame%45===0) spawnPiece();
+    if(frame%34===0) spawnPiece();
     pieces = pieces.filter(p=>{
       p.y += p.vy;
       p.x += p.vx + Math.sin(p.sway)*p.swayAmp;
